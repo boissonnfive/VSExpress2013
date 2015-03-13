@@ -1,5 +1,5 @@
 # VisualStudio
-My projects in Microsoft Visual Studio Express 2013
+My projects in Microsoft Visual Studio Express.
 
 ## WinNameChanger
 
