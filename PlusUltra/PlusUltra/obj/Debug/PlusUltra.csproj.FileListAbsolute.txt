@@ -10,3 +10,12 @@ c:\users\bruno\documents\visual studio 2013\Projects\PlusUltra\PlusUltra\obj\Deb
 C:\Users\Bruno\Documents\GitHub\PlusUltra\PlusUltra\bin\Debug\PlusUltra.exe.config
 C:\Users\Bruno\Documents\GitHub\PlusUltra\PlusUltra\obj\Debug\PlusUltra.exe
 C:\Users\Bruno\Documents\GitHub\PlusUltra\PlusUltra\obj\Debug\PlusUltra.pdb
+C:\Users\Bruno\Documents\GitHub\VisualStudio\PlusUltra\PlusUltra\bin\Debug\PlusUltra.exe.config
+C:\Users\Bruno\Documents\GitHub\VisualStudio\PlusUltra\PlusUltra\obj\Debug\PlusUltra.exe
+C:\Users\Bruno\Documents\GitHub\VisualStudio\PlusUltra\PlusUltra\obj\Debug\PlusUltra.pdb
+C:\Users\Bruno\Documents\GitHub\VisualStudio\PlusUltra\PlusUltra\bin\Debug\PlusUltra.exe
+C:\Users\Bruno\Documents\GitHub\VisualStudio\PlusUltra\PlusUltra\bin\Debug\PlusUltra.pdb
+C:\Users\Bruno\Documents\GitHub\VisualStudio\PlusUltra\PlusUltra\obj\Debug\PlusUltra.csprojResolveAssemblyReference.cache
+C:\Users\Bruno\Documents\GitHub\VisualStudio\PlusUltra\PlusUltra\obj\Debug\PlusUltra.wfPlusUltra.resources
+C:\Users\Bruno\Documents\GitHub\VisualStudio\PlusUltra\PlusUltra\obj\Debug\PlusUltra.Properties.Resources.resources
+C:\Users\Bruno\Documents\GitHub\VisualStudio\PlusUltra\PlusUltra\obj\Debug\PlusUltra.csproj.GenerateResource.Cache

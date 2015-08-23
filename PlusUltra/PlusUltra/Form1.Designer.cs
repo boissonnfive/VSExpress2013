@@ -42,9 +42,10 @@
             // 
             // tbReponse
             // 
+            this.tbReponse.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tbReponse.Location = new System.Drawing.Point(32, 105);
             this.tbReponse.Name = "tbReponse";
-            this.tbReponse.Size = new System.Drawing.Size(395, 20);
+            this.tbReponse.Size = new System.Drawing.Size(395, 29);
             this.tbReponse.TabIndex = 0;
             this.tbReponse.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             this.tbReponse.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBox1_KeyDown);
@@ -53,7 +54,7 @@
             // lblQuestion
             // 
             this.lblQuestion.BackColor = System.Drawing.Color.White;
-            this.lblQuestion.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblQuestion.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblQuestion.Location = new System.Drawing.Point(33, 34);
             this.lblQuestion.Name = "lblQuestion";
             this.lblQuestion.Size = new System.Drawing.Size(394, 60);
@@ -93,6 +94,7 @@
             // lblReponse
             // 
             this.lblReponse.BackColor = System.Drawing.Color.White;
+            this.lblReponse.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblReponse.Location = new System.Drawing.Point(33, 142);
             this.lblReponse.Name = "lblReponse";
             this.lblReponse.Size = new System.Drawing.Size(394, 40);
@@ -100,12 +102,15 @@
             // 
             // btnDemarrerArreter
             // 
-            this.btnDemarrerArreter.Location = new System.Drawing.Point(526, 33);
+            this.btnDemarrerArreter.BackColor = System.Drawing.Color.LimeGreen;
+            this.btnDemarrerArreter.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnDemarrerArreter.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.btnDemarrerArreter.Location = new System.Drawing.Point(504, 26);
             this.btnDemarrerArreter.Name = "btnDemarrerArreter";
-            this.btnDemarrerArreter.Size = new System.Drawing.Size(75, 23);
+            this.btnDemarrerArreter.Size = new System.Drawing.Size(112, 38);
             this.btnDemarrerArreter.TabIndex = 6;
             this.btnDemarrerArreter.Text = "Démarrer";
-            this.btnDemarrerArreter.UseVisualStyleBackColor = true;
+            this.btnDemarrerArreter.UseVisualStyleBackColor = false;
             this.btnDemarrerArreter.Click += new System.EventHandler(this.button1_Click);
             // 
             // progressBar1

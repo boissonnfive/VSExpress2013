@@ -75,6 +75,7 @@ namespace PlusUltra
         private int compteQuestion;
         private bool tropLong;
         private string raccourciTrouve;
+        private string raccourciInconnu;
         //private bool control_K_Actif = false;
         //private bool prefixSeen;
         private Dictionary<string, string> listeRaccourcisQuestions = new Dictionary<string, string>();
@@ -116,6 +117,7 @@ namespace PlusUltra
             compteQuestion = 0;
             tropLong = false;
             raccourciTrouve = "";
+            raccourciInconnu = "";
 
 
             //RootObject ro = new RootObject();
@@ -140,6 +142,9 @@ namespace PlusUltra
                     Console.WriteLine("Réinitialisation de la variable tropLong.");
                     tropLong = false;               // Pour laisser le temps à l'utilisateur de comprendre ce qu'il se passe
                                                     // On n'efface pas l'écran de suite
+
+                    // On réinitialise le compteur pour générer une nouvelle question
+                    compteTimer = 0;
 	            }
                 else if (raccourciTrouve != "")    // L'utilisateur a écrit un raccourci connu
                 {
@@ -157,7 +162,7 @@ namespace PlusUltra
                         lblReponse.Text = raccourciTrouve + " : " + listeRaccourcisQuestions[raccourciTrouve];
                         lblReponse.ForeColor = System.Drawing.Color.Green;
                     }
-                    else // le raccourci est faux
+                    else // le raccourci est connu mais n'est pas celui attendu pour la question
                     {
                         Console.WriteLine("Raccourci faux : {0}.", raccourciTrouve);
                         // 1. on le supprime de la textbox
@@ -171,6 +176,18 @@ namespace PlusUltra
                     // On réinitialise le compteur
                     compteTimer = 0;
                     
+                }
+                else if (raccourciInconnu != "") // L'utilisateur a entré un raccourci inconnu
+                {
+                    Console.WriteLine("Raccourci inconnu : {0}.", raccourciInconnu);
+                    // 1. on le supprime de la textbox
+                    tbReponse.Text = "";
+                    // 2. On signale à l'utilisateur que la réponse est fausse (en rouge)
+                    lblReponse.Text = raccourciInconnu + " : FAUX !";
+                    lblReponse.ForeColor = System.Drawing.Color.Red;
+                    raccourciInconnu = "";
+                    // On réinitialise le compteur
+                    compteTimer = 0;
                 }
                 else if (compteQuestion < 7)  // La bonne réponse a été donnée, on affiche une nouvelle question
                 {
@@ -252,6 +269,7 @@ namespace PlusUltra
                     {
 
                         Console.WriteLine("Raccourci inconnu : {0}.", format_Input(keyData.ToString()));
+                        raccourciInconnu = format_Input(keyData.ToString());
                         //lblReponse.Text = format_Input(keyData.ToString());
                         //lblReponse.ForeColor = System.Drawing.Color.Red;
 
@@ -863,11 +881,13 @@ namespace PlusUltra
             if (btnDemarrerArreter.Text == "Démarrer")
             {
                 btnDemarrerArreter.Text = "Arrêter";
+                btnDemarrerArreter.BackColor = System.Drawing.Color.Tomato;
                 reponseTimer.Start();
             }
             else
             {
                 btnDemarrerArreter.Text = "Démarrer";
+                btnDemarrerArreter.BackColor = System.Drawing.Color.LimeGreen;
                 reponseTimer.Stop();
             }
             
