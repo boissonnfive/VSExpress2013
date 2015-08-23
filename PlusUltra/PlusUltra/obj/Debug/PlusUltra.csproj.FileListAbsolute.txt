@@ -1,0 +1,12 @@
+c:\users\bruno\documents\visual studio 2013\Projects\PlusUltra\PlusUltra\bin\Debug\PlusUltra.exe.config
+c:\users\bruno\documents\visual studio 2013\Projects\PlusUltra\PlusUltra\bin\Debug\PlusUltra.exe
+c:\users\bruno\documents\visual studio 2013\Projects\PlusUltra\PlusUltra\bin\Debug\PlusUltra.pdb
+c:\users\bruno\documents\visual studio 2013\Projects\PlusUltra\PlusUltra\obj\Debug\PlusUltra.Properties.Resources.resources
+c:\users\bruno\documents\visual studio 2013\Projects\PlusUltra\PlusUltra\obj\Debug\PlusUltra.csproj.GenerateResource.Cache
+c:\users\bruno\documents\visual studio 2013\Projects\PlusUltra\PlusUltra\obj\Debug\PlusUltra.exe
+c:\users\bruno\documents\visual studio 2013\Projects\PlusUltra\PlusUltra\obj\Debug\PlusUltra.pdb
+c:\users\bruno\documents\visual studio 2013\Projects\PlusUltra\PlusUltra\obj\Debug\PlusUltra.csprojResolveAssemblyReference.cache
+c:\users\bruno\documents\visual studio 2013\Projects\PlusUltra\PlusUltra\obj\Debug\PlusUltra.wfPlusUltra.resources
+C:\Users\Bruno\Documents\GitHub\PlusUltra\PlusUltra\bin\Debug\PlusUltra.exe.config
+C:\Users\Bruno\Documents\GitHub\PlusUltra\PlusUltra\obj\Debug\PlusUltra.exe
+C:\Users\Bruno\Documents\GitHub\PlusUltra\PlusUltra\obj\Debug\PlusUltra.pdb
