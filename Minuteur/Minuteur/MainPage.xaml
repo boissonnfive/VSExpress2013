@@ -1,0 +1,24 @@
+﻿<Page
+    x:Class="Minuteur.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Minuteur"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Grid Background="#FFFFFFFF">
+        <Button x:Name="btnMarcheArret" Content="Démarrer" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,147" Click="btnMarcheArret_Click"/>
+        <TextBlock x:Name="tbTemps" HorizontalAlignment="Center" TextWrapping="Wrap" Text="00:00" VerticalAlignment="Top" Margin="0,187,0,0" FontSize="72"/>
+        <TextBlock x:Name="textBlock" HorizontalAlignment="Center" TextWrapping="Wrap" Text="Minuteur (Bubu)" VerticalAlignment="Top" Canvas.ZIndex="1" Margin="0,37,0,0"/>
+        <MediaElement x:Name="myMediaElement"
+                      HorizontalAlignment="Left"
+                      Height="10"
+                      Margin="10,104,0,0"
+                      VerticalAlignment="Top"
+                      Width="10"
+                      AutoPlay="False"
+                      Source="/Assets/tic-tac.wav"/>
+
+    </Grid>
+</Page>
