@@ -1,0 +1,19 @@
+﻿<Page
+    x:Class="Minuteur.ConfigTemps"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Minuteur"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" BorderThickness="0">
+        <!--<TimePicker x:Name="tpTemps" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="10,114,108,450" FontSize="48" Height="76" Time="15:00"  Background="Black"/>-->
+        <Button x:Name="button" Content="Fermer" HorizontalAlignment="Center" VerticalAlignment="Top" Click="button_Click" BorderThickness="2" BorderBrush="White" Margin="0,383,0,0"/>
+        <ToggleSwitch x:Name="tsSonDuTicTac" Header="Son du tic-tac" HorizontalAlignment="Left" Margin="60,125,0,0" VerticalAlignment="Top" ToolTipService.ToolTip="Active/Désactive le son du tic-tac à chaque seconde" Toggled="tsSonDuTicTac_Toggled"/>
+        <ToggleSwitch x:Name="tsSonAlarme" Header="Son alarme" HorizontalAlignment="Left" Margin="59,190,0,0" VerticalAlignment="Top" UseLayoutRounding="True" ToolTipService.ToolTip="Active/Désactive l'alarme lorsque le temps est écoulé" Toggled="tsSonAlarme_Toggled"/>
+        <ToggleSwitch x:Name="tsVibreur" Header="Vibreur" HorizontalAlignment="Left" Margin="59,255,0,0" VerticalAlignment="Top" ToolTipService.ToolTip="Active/Désactive le vibreur lorsque le temps est écoulé" Toggled="tsVibreur_Toggled"/>
+        <TimePicker   x:Name="tpTemps" HorizontalAlignment="Left" Margin="59,10,0,0" VerticalAlignment="Top" Time="15:00" FontSize="48"/>
+
+    </Grid>
+</Page>
