@@ -6,11 +6,11 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("Minuteur")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("Minuteur basique en Minutes/secondes pour la cuisine ou les Pomodoro.")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("Bruno Boissonnet")]
 [assembly: AssemblyProduct("Minuteur")]
-[assembly: AssemblyCopyright("Copyright ©  2016")]
+[assembly: AssemblyCopyright("Copyright © Bruno Boissonnet 2016")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
