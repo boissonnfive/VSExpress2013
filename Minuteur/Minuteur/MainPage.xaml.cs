@@ -22,33 +22,33 @@ namespace Minuteur
     /// </summary>
     public sealed partial class MainPage : Page
     {
-        //runs on the UI Thread
-        private DispatcherTimer dispatcherTimer;
-
-        private const int TEMPS_MAX = 15;
-
-        private DateTime EndTime { get; set; }
-
+        private const int TEMPS_MAX = 15 ;                               // Temps de départ du minuteur
+        private int tempsQuiReste ;                                      // Temps qui reste à s'écouler
+        private DateTime EndTime { get; set; }                           // Temps actuel
+        private DispatcherTimer dispatcherTimer ;                        // Timer du minuteur
+        private Windows.System.Display.DisplayRequest _displayRequest ;  // Pour empêcher l'écran de veille
 
         public MainPage()
         {
-            this.InitializeComponent();
+            this.InitializeComponent() ;
+            tempsQuiReste = TEMPS_MAX ;
+            miseALHeure(tempsQuiReste, 0) ;
         }
 
         private void btnMarcheArret_Click(object sender, RoutedEventArgs e)
         {
-            if (btnMarcheArret.Content.ToString() == "Démarrer")
+            if ( btnMarcheArret.Content.ToString() == "Démarrer" )
             {
-                btnStartClick(null, null);
+                btnStartClick( null, null ) ;
             }
             else
             {
-                btnStopClick(null, null);
+                btnStopClick( null, null ) ;
             }
         }
 
 
-
+        // Méthode appelée par le timer selon la fréquence définie
         void dispatcherTimer_Tick(object sender, object e)
         {
             var remaining = this.EndTime - DateTime.Now;
@@ -56,24 +56,27 @@ namespace Minuteur
 
             int minutes = remainingSeconds / 60;
             int secondes = remainingSeconds % 60;
-            String prefixSecondes = "";
-            String prefixMinutes = "";
-            if (secondes < 10)
-            {
-                prefixSecondes = "0";
-            }
+            //String prefixSecondes = "";
+            //String prefixMinutes = "";
+            //if (secondes < 10)
+            //{
+            //    prefixSecondes = "0";
+            //}
 
-            if (minutes < 10)
-            {
-                prefixMinutes = "0";
-            }
-            
-            //this.timeSpan.Value = TimeSpan.FromSeconds(remainingSeconds);
-            tbTemps.Text = prefixMinutes + minutes.ToString() + ":" + prefixSecondes + secondes.ToString();
+            //if (minutes < 10)
+            //{
+            //    prefixMinutes = "0";
+            //}
+
+            ////this.timeSpan.Value = TimeSpan.FromSeconds(remainingSeconds);
+            //tbTemps.Text = prefixMinutes + minutes.ToString() + ":" + prefixSecondes + secondes.ToString();
+            miseALHeure(minutes, secondes);
+
             myMediaElement.Play();
 
             if (remaining.TotalSeconds <= 0)
             {
+                afficheBoiteDeDialogueFinMinuteur();
                 btnStopClick(null, null);
             }
         }
@@ -85,6 +88,10 @@ namespace Minuteur
             //this.timeSpan.Value = TimeSpan.FromSeconds(0);
             tbTemps.Text = "00:00";
             btnMarcheArret.Content = "Démarrer";
+
+            //must be same instance, so quit if it doesn't exist
+            if (_displayRequest != null)
+                _displayRequest.RequestRelease();
         }
 
         private void btnStartClick(object sender, RoutedEventArgs e)
@@ -96,20 +103,81 @@ namespace Minuteur
                 this.dispatcherTimer.Tick += dispatcherTimer_Tick;
             }
 
+            btnMarcheArret.Content = "Arrêter";
+            //tbTemps.Text = TEMPS_MAX.ToString() + ":00";
+            //tbTemps.Text = laMinute.ToString() + ":00";
+            miseALHeure(tempsQuiReste, 0);
+
+
+            // Empêche l'écran de vérouillage
+            if (_displayRequest == null)
+                _displayRequest = new Windows.System.Display.DisplayRequest();
+
+            _displayRequest.RequestActive();
+
             if (this.EndTime == DateTime.MinValue)
             {
                 // Ajout de 15 minutes à la date de maintenant
-                this.EndTime = DateTime.Now + new TimeSpan(0, 0, TEMPS_MAX, 0, 0);//(TimeSpan)this.timeSpan.Value;
+                //this.EndTime = DateTime.Now + new TimeSpan(0, 0, TEMPS_MAX, 0, 0);//(TimeSpan)this.timeSpan.Value;
+                this.EndTime = DateTime.Now + new TimeSpan(0, 0, tempsQuiReste, 0, 0);
             }
 
-            btnMarcheArret.Content = "Arrêter";
-            tbTemps.Text = "15:00";
             this.dispatcherTimer.Start();
+        }
+
+        private async void afficheBoiteDeDialogueFinMinuteur()
+        {
+            ContentDialog noWifiDialog = new ContentDialog()
+            {
+                Title = "Fin du temps",
+                Content = "Cliquez sur OK pour arrêter le minuteur.",
+                PrimaryButtonText = "OK"
+            };
+
+            ContentDialogResult result = await noWifiDialog.ShowAsync();
+        }
+
+        private void tbTemps_DoubleTapped(object sender, DoubleTappedRoutedEventArgs e)
+        {
+            // Lancement de la page de configuration du temps
+            this.Frame.Navigate(typeof(ConfigTemps));
         }
 
         //private void btnPauseClick(object sender, RoutedEventArgs e)
         //{
         //    this.dispatcherTimer.Stop();
         //}
+
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            if (e.Parameter is int)
+            {
+                tempsQuiReste = Int32.Parse(e.Parameter.ToString());
+                miseALHeure(tempsQuiReste, 0);
+            }
+            else
+            {
+                tempsQuiReste = 15;
+            }
+            base.OnNavigatedTo(e);
+        }
+
+        private void miseALHeure(int minutes, int secondes)
+        {
+            String prefixSecondes = "";
+            String prefixMinutes = "";
+            if (secondes < 10)
+            {
+                prefixSecondes = "0";
+            }
+
+            if (minutes < 10)
+            {
+                prefixMinutes = "0";
+            }
+
+            //this.timeSpan.Value = TimeSpan.FromSeconds(remainingSeconds);
+            tbTemps.Text = prefixMinutes + minutes.ToString() + ":" + prefixSecondes + secondes.ToString();
+        }
     }
 }
