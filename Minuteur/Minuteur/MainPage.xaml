@@ -7,10 +7,10 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <Grid Background="#FFFFFFFF">
+    <Grid BorderBrush="{ThemeResource ApplicationForegroundThemeBrush}" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <Button x:Name="btnMarcheArret" Content="Démarrer" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,147" Click="btnMarcheArret_Click"/>
-        <TextBlock x:Name="tbTemps" HorizontalAlignment="Center" TextWrapping="Wrap" Text="00:00" VerticalAlignment="Top" Margin="0,187,0,0" FontSize="72"/>
-        <TextBlock x:Name="textBlock" HorizontalAlignment="Center" TextWrapping="Wrap" Text="Minuteur (Bubu)" VerticalAlignment="Top" Canvas.ZIndex="1" Margin="0,37,0,0"/>
+        <TextBlock x:Name="tbTemps" HorizontalAlignment="Center" TextWrapping="Wrap" Text="00:00" VerticalAlignment="Top" Margin="0,147,0,0" FontSize="124" DoubleTapped="tbTemps_DoubleTapped"/>
+        <TextBlock x:Name="textBlock" HorizontalAlignment="Center" TextWrapping="Wrap" Text="Minuteur (Boissonnet)" VerticalAlignment="Top" Canvas.ZIndex="1" Margin="0,37,0,0"/>
         <MediaElement x:Name="myMediaElement"
                       HorizontalAlignment="Left"
                       Height="10"
