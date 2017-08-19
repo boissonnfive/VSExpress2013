@@ -110,6 +110,7 @@
     <None Include="Minuteur_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\Concierge.wav" />
     <Content Include="Assets\tic-tac.wav" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />

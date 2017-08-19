@@ -1,110 +1,102 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
 using Windows.Phone.Devices.Notification;
 using Windows.Devices.Lights;
+using System.Collections.Generic;
+using Windows.UI.Xaml.Navigation; // OnNavigatedTo
+using System.Threading.Tasks;     // Task
 
 // Pour plus d'informations sur le modèle d'élément Page vierge, voir la page http://go.microsoft.com/fwlink/?LinkId=234238
 
 namespace Minuteur
 {
     /// <summary>
-    /// Une page vide peut être utilisée seule ou constituer une page de destination au sein d'un frame.
+    /// Page de configuration du Minuteur. On peut modifier le temps du minuteur, ajouter/enlever un bruit de tic-tac,
+    /// ajouter/enlever un son quand le temps est écoulé, ajouter/enlever la vibration quand le temps est écoulé.
     /// </summary>
-    public sealed partial class ConfigTemps : Page
+    public sealed partial class Config : Page
     {
-        public ConfigTemps()
+        private const int TEMPS_VIBRATION = 500 ;                         // Temps de vibration du vibreur
+
+        public Config()
         {
             this.InitializeComponent();
         }
 
+        /// <summary>
+        /// Appelé quand on clique sur le bouton "Fermer"
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void button_Click(object sender, RoutedEventArgs e)
         {
-            this.Frame.Navigate(typeof(MainPage), tpTemps.Time.Hours);
+            //renvoie le nouveau temps à la fenêtre principale
+            //List listeParametres = new List
+            List<int> listMainPage = new List<int>(4) ;
+            listMainPage.Add( tpTemps.Time.Hours) ;
+            listMainPage.Add( tsSonDuTicTac.IsOn ? 1: 0) ;
+            listMainPage.Add( tsSonAlarme.IsOn ? 1: 0 ) ;
+            listMainPage.Add( tsVibreur.IsOn ? 1: 0 ) ;
 
+            this.Frame.Navigate( typeof( MainPage ), listMainPage ) ;
         }
 
+        /// <summary>
+        /// Appelé quand on revient de la page principale
+        /// </summary>
+        /// <param name="e"></param>
+        protected override void OnNavigatedTo( NavigationEventArgs e )
+        {
+            if ( e.Parameter is List<int> )
+            {
+                // On récupère les paramètres et on met à jour la page
+                TimeSpan ts        = new TimeSpan( ( e.Parameter as List<int> )[0], 0, 0 ) ;
+                tpTemps.Time       = ts ;
+                ActiverLeSonDuTicTac( ( e.Parameter as List<int> )[1] == 1 ? true : false ) ;
+                ActiverLeSonDeLAlarme( ( e.Parameter as List<int> )[2] == 1 ? true : false ) ;
+                ActiverLeVibreur( ( e.Parameter as List<int> )[3] == 1 ? true : false ) ;
+            }
+            base.OnNavigatedTo(e);
+        }
+
+        /// <summary>
+        /// Appelé quand le bouton du tic-tac change d'état
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void tsSonDuTicTac_Toggled(object sender, RoutedEventArgs e)
         {
-            afficheBoiteDeDialogue("Vous avez sélectionné le son du tic-tac.");
+            mediaSonTicTac.Play() ;
         }
 
+        /// <summary>
+        /// Appelé quand le bouton du son de l'alarme change d'état
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void tsSonAlarme_Toggled(object sender, RoutedEventArgs e)
         {
-            afficheBoiteDeDialogue("Vous avez sélectionné le son de l'alarme.");
+            mediaSonAlarme.Play() ;
         }
 
-        private async void tsVibreur_Toggled(object sender, RoutedEventArgs e)
+        /// <summary>
+        /// Appelé quand le bouton du vibreur change d'état
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void tsVibreur_Toggled(object sender, RoutedEventArgs e)
         {
-            afficheBoiteDeDialogue("Vous avez sélectionné le vibreur.");
-            //Windows.Devices.Lights.Lamp laLampe = new Windows.Devices.Lights[0].;
-            //laLampe.IsEnabled = true;
-
-
-            // source : https://github.com/Microsoft/Windows-universal-samples/blob/master/Samples/LampDevice/cs/Scenario1_GetLamp.xaml.cs
-            using (var lamp = await Lamp.GetDefaultAsync())
-            {
-                if (lamp == null)
-                {
-                    ;
-                }
-                else
-                {
-                    //await LogStatusAsync(string.Format(CultureInfo.InvariantCulture, "Default lamp instance acquired, Device Id: {0}", lamp.DeviceId), NotifyType.StatusMessage);
-                    //await LogStatusToOutputBoxAsync("Lamp Default settings:");
-                    //await LogStatusToOutputBoxAsync(string.Format(CultureInfo.InvariantCulture, "Lamp Enabled: {0}, Brightness: {1}", lamp.IsEnabled, lamp.BrightnessLevel));
-
-                    // Set the Brightness Level
-                    //await LogStatusToOutputBoxAsync("Adjusting Brightness");
-                    lamp.BrightnessLevel = 0.5F;
-                    //await LogStatusAsync(string.Format(CultureInfo.InvariantCulture, "Lamp Settings After Brightness Adjustment: Brightness: {0}", lamp.BrightnessLevel), NotifyType.StatusMessage);
-
-                    // Turn Lamp on
-                    //await LogStatusToOutputBoxAsync("Turning Lamp on");
-                    lamp.IsEnabled = true;
-                    int bubu = 0;
-                    for (int i = 0; i < 500000; i++)
-                    {
-                        bubu = bubu + 1;
-                        lamp.IsEnabled = true;
-                    }
-
-                    //await LogStatusToOutputBoxAsync(string.Format(CultureInfo.InvariantCulture, "Lamp Enabled: {0}", lamp.IsEnabled));
-
-                    // Turn Lamp off
-                    //await LogStatusToOutputBoxAsync("Turning Lamp off");
-                    //lamp.IsEnabled = false;
-                    //await LogStatusToOutputBoxAsync(string.Format(CultureInfo.InvariantCulture, "Lamp Enabled: {0}", lamp.IsEnabled));
-                }
-            }
-
-
-
             try
             {
-                VibrationDevice testVibrationDevice = VibrationDevice.GetDefault();
-                testVibrationDevice.Vibrate(TimeSpan.FromMilliseconds(200));
+                VibrationDevice testVibrationDevice = VibrationDevice.GetDefault() ;
+                testVibrationDevice.Vibrate( TimeSpan.FromMilliseconds( TEMPS_VIBRATION ) ) ;
             }
             catch (Exception)
             {
 
                 //throw;
             }
-            
-
-            // v = VibrationDevice.GetDefault();
-            //v.Vibrate(TimeSpan.FromMilliseconds(500));
         }
 
         private async void afficheBoiteDeDialogue(String message)
@@ -117,6 +109,63 @@ namespace Minuteur
             };
 
             ContentDialogResult result = await noWifiDialog.ShowAsync();
+        }
+
+        /// <summary>
+        /// Active le bouton responsable du son du tic-tac
+        /// </summary>
+        /// <param name="bSonTicTac">Active ou pas</param>
+        /// <remarks>On est obligé de désenregistrer l'événement associé au changement du bouton
+        /// pour ne pas lancer la fonction associé à cet événement.</remarks>
+        private void ActiverLeSonDuTicTac(bool bSonTicTac)
+        {
+            tsSonDuTicTac.Toggled -= tsSonDuTicTac_Toggled ;
+            try
+            {
+                tsSonDuTicTac.IsOn = bSonTicTac ;
+            }
+            finally
+            {
+                tsSonDuTicTac.Toggled += tsSonDuTicTac_Toggled ;
+            }
+        }
+
+        /// <summary>
+        /// Active le bouton responsable du son de l'alarme
+        /// </summary>
+        /// <param name="bSonAlarme">Active ou pas</param>
+        /// <remarks>On est obligé de désenregistrer l'événement associé au changement du bouton
+        /// pour ne pas lancer la fonction associé à cet événement.</remarks>
+        private void ActiverLeSonDeLAlarme(bool bSonAlarme)
+        {
+            tsSonAlarme.Toggled -= tsSonAlarme_Toggled ;
+            try
+            {
+                tsSonAlarme.IsOn = bSonAlarme ;
+            }
+            finally
+            {
+                tsSonAlarme.Toggled += tsSonAlarme_Toggled ;
+            }
+        }
+
+        /// <summary>
+        /// Active le bouton responsable du vibreur
+        /// </summary>
+        /// <param name="bVibreur">Active ou pas</param>
+        /// <remarks>On est obligé de désenregistrer l'événement associé au changement du bouton
+        /// pour ne pas lancer la fonction associé à cet événement.</remarks>
+        private void ActiverLeVibreur(bool bVibreur)
+        {
+            tsVibreur.Toggled -= tsVibreur_Toggled ;
+            try
+            {
+                tsVibreur.IsOn = bVibreur ;
+            }
+            finally
+            {
+                tsVibreur.Toggled += tsVibreur_Toggled ;
+            }
         }
     }
 }

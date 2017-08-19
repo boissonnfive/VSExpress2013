@@ -21,6 +21,45 @@ Ce minuteur consiste en :
 
 ## Version 2.0.0 ##
 
+- Changement de calcul du temps qui reste : on ne soustrait pas le temps présent du temps de départ enregistré; on enlève 1 seconde à chaque tic.
+- Ajout des variables pour récupérer les paramètres modifiés par l'utilisateur.
+- Refactorisation
+- Ajout de commentaires XML
+
+- Assets :
+    + Modification du son du tic-tac pour avoir un son plus fort
+    + Ajout d'un son de temps écoulé "Concierge.wav"
+- AssemblyInfo.cs : 
+    + modification du numéro de version 2.0.0.0
+    + Date du Copyright en 2017
+    + Suppression des using inutiles
+- App.xaml.cs :
+    + Suppression des using inutiles
+- ConfigTemps.xaml :
+    + Renommage de la classe ConfigTemps en Config
+    + Réarrangement des objets pour correspondre à leur arrangement dans la page et pour une meilleure lecture
+- ConfigTemps.xaml.cs :
+    + Renvoie tous les paramètres à la page principale via une liste quand on clique sur le bouton "Fermer"
+    + Récupère tous les paramètres de la page principale
+    + Création des fonctions "ActiverLeSonDuTicTac", "ActiverLeSonDeLAlarme", "ActiverLeVibreur" qui désenregistre la méthode qui écoute si on a fait changer d'état le bouton, le temps de changer le bouton d'état, puis qui réenregistre la méthode (afin de ne pas faire les actions contenues dans la méthode)
+    + Suppression de la boîte de dialogue quand on change l'état d'un bouton
+    + Formatage des commentaires
+    + Ajout d'une constante pour le temps du vibreur : TEMPS_VIBRATION
+- MainPage.xaml :
+    + Réalignement des éléments pour ressembler à la page Config
+    + Ajout du son Alarme
+- MainPage.xaml.cs :
+    + suppression des using inutiles
+    + Commentaire XML du code
+    + Renommage des fonctions
+    + Factorisation du code
+    + Ajout des variables correspondant aux paramètres de la page Config et des variable pour calculer le temps qui reste.
+- Minuteur.csproj :
+    + Ajout du fichier Concierge.wav pour le son quand le temps est écoulé.
+- Package.appxmanifest :
+    + Suppression de la possibilité de se connecter à internet (inutile pour cette application)
+
+NOTE : j'ai eu un bug difficile à trouver. Quand j'envoyais les paramètres à la page Config, la page ne se chargeait pas et j'avais une exception : « La fenêtre est déjà lancée ». En fait, quand je mettais à jour les boutons d'état, je lançais une boîte de dialogue. Or, ceci était activé à la réception des données quand je mettais à jour l'état des boutons. D'où les méthodes pour changer l'état des boutons sans passer par la méthode lancée sur le changement d'état des boutons.
 
 
 ## Version 1.0.1 ##
